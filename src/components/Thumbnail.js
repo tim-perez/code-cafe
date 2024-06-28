@@ -15,4 +15,9 @@ function Thumbnail({ image, title }) {
   );
 }
 
+Thumbnail.propTypes = {
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
+
 export default Thumbnail;
