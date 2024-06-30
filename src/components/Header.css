@@ -17,3 +17,17 @@
   color: #674836;
   margin-left: 15px;
 }
+
+.header-component p {
+  color: #674836;
+}
+
+@media (min-width: 768px) {
+  .header-component {
+    padding: 0 50px;
+  }
+  .header-component img {
+    height: 60px;
+    width: 60px;
+  }
+}
