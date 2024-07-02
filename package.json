@@ -15,6 +15,7 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",
+    "serve": "^14.2.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -22,9 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint src --max-warnings=0",
-    "eject": "react-scripts eject", 
-    "start-prod": "serve - build"
-    
+    "eject": "react-scripts eject",
+    "start-prod": "serve -s build && node index.js"
   },
   "proxy": "http://localhost:3030",
   "eslintConfig": {
