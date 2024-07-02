@@ -3,7 +3,7 @@ const path = require('path');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const server = express();
-const port = 3000;
+const port = 9000;
 
 const apiProxy = createProxyMiddleware({
   target: 'http://localhost:3030/api',
