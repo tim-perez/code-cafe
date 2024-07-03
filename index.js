@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const open = require('open');
+
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const server = express();
@@ -23,7 +23,8 @@ server.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-server.listen(port, () => {
+server.listen(port, async () => {
   console.log(`Server is listening on port ${port}`);
+  const open = (await import('open')).default;
   open(`http://localhost:${port}`);
 });
