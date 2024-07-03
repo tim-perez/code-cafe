@@ -13,7 +13,7 @@ function Header({ title, cart }) {
         <h1>{title}</h1>
       </Link>
       <div className="menu">
-        <Link to="#todo">
+        <Link to="/cart">
           <img src={CartIcon} alt="Cart" />
           <div className="badge">{cartQuanity}</div>
         </Link>
