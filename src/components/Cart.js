@@ -36,22 +36,6 @@ function Cart({ cart, dispatch, items }) {
     setCoupon(formatted);
   };
 
-  const setFormattedPhone = (newNumber) => {
-    const digits = newNumber.replace(/\D/g, '');
-    let formatted = digits.substring(0, 3);
-    if (digits.length === 3 && newNumber[3] === '-') {
-      formatted = `${formatted}-`;
-    } else if (digits.length > 3) {
-      formatted = `${formatted}-${digits.substring(3, 6)}`;
-    }
-    if (digits.length === 6 && newNumber[7] === '-') {
-      formatted = `${formatted}-`;
-    } else if (digits.length > 6) {
-      formatted = `${formatted}-${digits.substring(6, 10)}`;
-    }
-    setPhone(formatted);
-  };
-
   return (
     <div className="cart-component">
       <h2>Your Cart</h2>
@@ -109,13 +93,16 @@ function Cart({ cart, dispatch, items }) {
                 required
               />
             </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="phone">
               Phone Number
-              <input
+              <PatternFormat
                 id="phone"
-                type="tel"
+                format="(###) ###-####"
+                mask="_"
                 value={phone}
-                onChange={(event) => setFormattedPhone(event.target.value)}
+                onValueChange={({ value }) => setPhone(value)}
+                required
               />
             </label>
             <label htmlFor="zipcode">
