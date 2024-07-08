@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CoffeeLogo from '../images/logo.svg';
 import CartIcon from '../images/cart.svg';
+import UserDetails from './UserDetails';
 import './Header.css';
 
 function Header({ title, cart }) {
@@ -17,6 +18,7 @@ function Header({ title, cart }) {
           <img src={CartIcon} alt="Cart" />
           <div className="badge">{cartQuanity}</div>
         </Link>
+        <UserDetails />
       </div>
     </header>
   );
