@@ -5,6 +5,8 @@ import { useRef, useState } from 'react';
 import './Cart.css';
 import ItemType from '../types/item';
 import CartRow from './CartRow';
+import Alert from './Alert';
+import { CartTypes } from '../reducers/cartReducer';
 
 function Cart({ cart, dispatch, items }) {
   const [name, setName] = useState('');
@@ -16,6 +18,8 @@ function Cart({ cart, dispatch, items }) {
   const zipRef = useRef(null);
   const nameRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [apiError, setApiError] = useState(' ');
 
   const subTotal = isEmployeeOfTheMonth ? 0 : cart.reduce((acc, item) => {
     const detailItem = items.find((i) => i.itemId === item.itemId);
@@ -32,6 +36,7 @@ function Cart({ cart, dispatch, items }) {
   const submitOrder = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
+    setApiError('');
     const orders = await axios.get('/api/orders');
     const orderNumber = orders.data.length;
     try {
@@ -41,13 +46,15 @@ function Cart({ cart, dispatch, items }) {
         phone,
         zipCode,
       });
-      console.log('Order submitted');
+      dispatch({ type: CartTypes.EMPTY });
+      setShowSuccessAlert(true);
       console.log(`There are ${orderNumber - 1} orders ahead of you.`);
       setName('');
       setPhone('');
       setZipCode('');
     } catch (error) {
       console.error('Error submitting the order:', error);
+      setApiError(error?.response?.data?.error || 'Unknown Error');
     } finally {
       setIsSubmitting(false);
     }
@@ -92,6 +99,12 @@ function Cart({ cart, dispatch, items }) {
 
   return (
     <div className="cart-component">
+      <Alert visible={showSuccessAlert} type="success">Thank you for your order.</Alert>
+      <Alert visible={!!apiError} type="error">
+        <p>There was an error submitting your order.</p>
+        <p>{apiError}</p>
+        <p>Please try again.</p>
+      </Alert>
       <h2>Your Cart</h2>
       {cart.length === 0 ? (
         <div>Your cart is empty.</div>
