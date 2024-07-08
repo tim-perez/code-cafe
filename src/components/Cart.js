@@ -15,6 +15,7 @@ function Cart({ cart, dispatch, items }) {
   const debounceRef = useRef(null);
   const zipRef = useRef(null);
   const nameRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subTotal = isEmployeeOfTheMonth ? 0 : cart.reduce((acc, item) => {
     const detailItem = items.find((i) => i.itemId === item.itemId);
@@ -28,9 +29,28 @@ function Cart({ cart, dispatch, items }) {
   const total = subTotal + tax;
   const isFormValid = zipCode.length === 5 && name.trim();
 
-  const submitOrder = (event) => {
+  const submitOrder = async (event) => {
     event.preventDefault();
-    // TODO
+    setIsSubmitting(true);
+    const orders = await axios.get('/api/orders');
+    const orderNumber = orders.data.length;
+    try {
+      await axios.post('/api/orders', {
+        items: cart,
+        name,
+        phone,
+        zipCode,
+      });
+      console.log('Order submitted');
+      console.log(`There are ${orderNumber - 1} orders ahead of you.`);
+      setName('');
+      setPhone('');
+      setZipCode('');
+    } catch (error) {
+      console.error('Error submitting the order:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const setFormattedPhone = () => (
@@ -155,7 +175,7 @@ function Cart({ cart, dispatch, items }) {
                 onChange={(event) => setFormattedCoupon(event.target.value)}
               />
             </label>
-            <button type="submit" disabled={!isFormValid}>
+            <button type="submit" disabled={!isFormValid || isSubmitting}>
               Order Now
             </button>
           </form>
