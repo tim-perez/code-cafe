@@ -22,6 +22,9 @@ function UserDetails() {
       { currentUser.username
         ? (
           <div>
+            {currentUser.access === 'associate'
+              ? <Link to="/orders">Orders</Link>
+              : null}
             <img src={Profile} alt="profile" />
             <p>{currentUser.username}</p>
             <button type="button" onClick={logout}>
