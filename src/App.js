@@ -83,8 +83,7 @@ function App() {
               <Route path="/" element={<Home items={items} />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/rewards" element={<RewardsTier />}>
-                <Route path=":tier" element={<RewardsTier />} />
+              <Route path="/rewards/:tier" element={<RewardsTier />}>
               </Route>
             </Routes>
           )}

@@ -6,7 +6,6 @@ function RewardsTier() {
   return (
     <div>
       <h2>
-        Rewards Tier:
         {tier}
       </h2>
     </div>
