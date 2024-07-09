@@ -7,7 +7,7 @@ const server = express();
 const port = 9000;
 
 const apiProxy = createProxyMiddleware({
-  target: 'http://localhost:3030/api',
+  target: 'http://localhost:3030/',
   changeOrigin: true,
 });
 
