@@ -43,6 +43,11 @@
     opacity: 75%;
 }
 
+.detail-item-component .sale {
+    color: red;
+    font-style: italic;
+}
+
 @media (min-width: 768px) {
     .detail-item-component {
         padding: 40px 50px;

@@ -16,6 +16,7 @@ function DetailItem({ addToCart, items }) {
     <div className="detail-item-component">
       {detailItem ? (
         <>
+          {detailItem.salePrice !== undefined && <div className="sale">On Sale!</div>}
           <img
             className="details-image"
             src={itemImages[detailItem.imageId]}

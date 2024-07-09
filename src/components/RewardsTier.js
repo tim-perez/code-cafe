@@ -4,11 +4,9 @@ function RewardsTier() {
   const { tier } = useParams();
 
   return (
-    <div>
-      <h2>
-        {tier}
-      </h2>
-    </div>
+    <h1>
+      {tier}
+    </h1>
   );
 }
 
