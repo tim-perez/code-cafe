@@ -75,9 +75,14 @@ function Cart({ cart, dispatch, items }) {
   if (phone.length === 10) {
     zipRef.current.focus();
   }
-  if (zipCode.length === 5 && name === '') {
+
+  const onZipChange = (newZip) => {
+    if (zipCode.length === 5 && name.trim() === '') {
     nameRef.current.focus();
-  }
+    }
+    setZipCode(newZip);
+  };
+
   const setFormattedCoupon = (newCoupon) => {
     const formatted = newCoupon.toUpperCase();
     setCoupon(formatted);
@@ -173,7 +178,7 @@ function Cart({ cart, dispatch, items }) {
                 maxLength="5"
                 inputMode="numeric"
                 value={zipCode}
-                onChange={(event) => setZipCode(event.target.value)}
+                onChange={(event) => onZipChange(event.target.value)}
                 required
                 ref={zipRef}
               />
